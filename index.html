@@ -20,22 +20,32 @@
           </div>
           <div class="input-container flex items-center justify-end">
             <input
-            id="search-phone"
+              id="search-phone"
               class="py-1 px-3 w-2/4 mr-2 rounded font-semibold border-black border-2"
               type="text"
               placeholder="search here"
             />
-            <button class="bg-blue-600 text-white px-8 py-1.5 rounded" onclick="loadSearch()">
+            <button
+              class="bg-blue-600 text-white px-8 py-1.5 rounded"
+              onclick="loadSearch()"
+            >
               Search
             </button>
           </div>
         </nav>
       </section>
     </header>
+    <!-- items or phones show section -->
+    <main>
+      <section class="container mx-auto my-4">
+        <div id="phone-result" class="grid grid-cols-3 text-center">
+        </div>
+      </section>
+    </main>
 
     <!-- footer section are here -->
     <footer class="footer flex flex-col justify-center">
-        <p>All rights reserved. 2022</p>
+      <p>All rights reserved. 2022</p>
     </footer>
     <!-- javascript -->
     <script src="./js/app.js"></script>
