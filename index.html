@@ -38,8 +38,20 @@
     <!-- items or phones show section -->
     <main>
       <section class="container mx-auto my-4">
-        <div id="phone-result" class="grid grid-cols-3 text-center">
+        <!-- error message -->
+        <div>
+          <h1 id="error-message"></h1>
         </div>
+
+        <!-- result title are here -->
+        <div>
+          <h2 id="result-title" class="ml-10 text-2xl text-semibold hidden">
+            Search results for "<span id="search-result"></span>"
+          </h2>
+        </div>
+
+        <!-- search result are shown here -->
+        <div id="phone-result" class="grid grid-cols-3 text-center"></div>
       </section>
     </main>
 
