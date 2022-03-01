@@ -11,6 +11,13 @@ const loadOneMobile = (modelNumber) => {
     .then((data) => mobileDetails(data.data));
 };
 
+const keypress = document.getElementById("search-phone");
+keypress.addEventListener("keypress", function (e) {
+  if (e.keyCode === 13) {
+    loadSearch();
+  }
+});
+
 const loadSearch = () => {
   document.getElementById("phone-result").textContent = "";
   const searchValue = document.getElementById("search-phone");
@@ -22,6 +29,7 @@ const loadSearch = () => {
 };
 const errorTitle = document.getElementById("error-title");
 const errorMessage = document.getElementById("error-msg");
+
 const showData = (phones) => {
   // error handling
   if (phones.length === 0) {
