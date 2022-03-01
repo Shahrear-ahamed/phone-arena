@@ -1,7 +1,3 @@
-// Phone detail url:
-// URL Format:
-
-// Example: https://openapi.programming-hero.com/api/phone/apple_iphone_13_pro_max-11089
 const loadPhoneDataSearches = (searchPhone) => {
   const url = `https://openapi.programming-hero.com/api/phones?search=${searchPhone}`;
   fetch(url)
@@ -22,6 +18,7 @@ const loadSearch = () => {
   searchResult.innerText = searchValue.value;
   loadPhoneDataSearches(searchValue.value);
   searchValue.value = "";
+document.getElementById("detail-main-section").classList.add("hidden");
 };
 
 const showData = (phones) => {
@@ -47,10 +44,54 @@ const showData = (phones) => {
 const showDetails = (id) => {
   loadOneMobile(id);
 };
+
+// load details menual seciton are here
+/* const mobileDetails = (mobile) => {
+  console.log(mobile);
+  // sensor details
+  const [face, acce, gyro, proxi, comp, baro] = mobile.mainFeatures.sensors;
+  // other details
+  const { Bluetooth, GPS, NFC, Radio, USB, WLAN } = mobile.others;
+  document.getElementById("model-title").innerText = `${mobile.brand} ${mobile.name}`;
+  document.getElementById("details-img").src =`${mobile.image}`;
+  document.getElementById("brand-title").innerText = `${mobile.brand}`;
+  document.getElementById("announced").innerText = `${mobile.releaseDate}`;
+  document.getElementById("display").innerText = `${mobile.mainFeatures.displaySize}`;
+  document.getElementById("cheapset").innerText = `${mobile.mainFeatures.chipSet}`;
+  document.getElementById("memory").innerText = `${mobile.mainFeatures.memory}`;
+  document.getElementById("storage").innerText = `${mobile.mainFeatures.storage}`;
+  document.getElementById("sensors").innerText = `${face}, ${acce}, ${gyro}, ${proxi}, ${comp}, ${baro}`;
+  document.getElementById("others").innerHTML = `
+            <p>Blutooth: ${Bluetooth}</p> 
+            <p>GPS: ${GPS}</p> 
+            <p>NFC: ${NFC}</p> 
+            <p>Radio: ${Radio}</p> 
+            <p>USB: ${USB}</p> 
+            <p>WLAN: ${WLAN}</p>`;
+document.getElementById("detail-main-section").classList.remove("hidden");
+}; */
+
+
+// load details auto seciton are here
 const mobileDetails = (mobile) => {
   console.log(mobile);
-  document.getElementById(
-    "model-title"
-  ).innerText = `${mobile.brand} ${mobile.name}`;
-//   document.getElementById("brand-title").innerText = `${mobile.brand}`;
+  // sensor details
+  const [face, acce, gyro, proxi, comp, baro] = mobile.mainFeatures.sensors;
+  // other details
+  const { Bluetooth, GPS, NFC, Radio, USB, WLAN } = mobile.others;
+  const detailsArray =["Announced", "Display", "Cheapset", "Storage", "Sensors", "Others"]
+  const loadTable = document.getElementById("load-details");
+  detailsArray.forEach(elem => {
+      const tr = document.createElement("tr");
+      tr.classList.add("border-b");
+      tr.classList.add("border-black-800");
+      tr.innerHTML = `
+      <td>
+        <h2 class="text-lg font-semibold details-td-title">${elem}</h2>
+      </td>
+      <td><p id="${elem}"></p></td>
+      `;
+      loadTable.appendChild(tr);
+  });
+  document.getElementById("detail-main-section").classList.remove("hidden");
 };

@@ -37,80 +37,33 @@
     </header>
     <!-- items or phones show section -->
     <main>
-      <section class="container mx-auto my-4">
+      <section id="detail-main-section" class="my-4 shadow-lg py-6 hidden">
         <!-- error message -->
         <div>
           <h1 id="error-message"></h1>
         </div>
 
         <!-- details section are here -->
-        <div class="w-2/4 mx-auto">
+
+        <div class="w-3/5 mx-auto">
           <!-- details title  -->
           <div id="details-title">
-            <h2 id="model-title" class="text-2xl font-semibold my-3"></h2>
+            <h2
+              id="model-title"
+              class="text-2xl font-semibold text-center border-b mb-4 pb-2 w-2/4 mx-auto"
+            ></h2>
           </div>
           <div class="flex">
-            <div id="img-section" class="w-2/5">
-              <img
-                class="mx-auto"
-                src="https://fdn2.gsmarena.com/vv/bigpic/apple-iphone-13-pro.jpg"
-                alt=""
-              />
-              <h2 class="text-lg text-center font-semibold">
+            <div id="img-section" class="w-2/6 md:mt-3">
+              <img id="details-img" class="mx-auto" src="" alt="" />
+              <h2 class="text-lg text-center font-semibold my-2">
                 Brand: <span id="brand-title"></span>
               </h2>
             </div>
-            <div id="model-details" class="w-3/5">
-              <table class="table-automt-3">
-                <tbody>
-                  <tr class="border-b border-black-800">
-                    <td>
-                      <h2 class="text-lg font-semibold details-td-title">
-                        Announced
-                      </h2>
-                    </td>
-                    <td><p>its for test</p></td>
-                  </tr>
-                  <tr class="border-b border-black-800">
-                    <td>
-                      <h2 class="text-lg font-semibold details-td-title">
-                        Display
-                      </h2>
-                    </td>
-                    <td><p>its for test</p></td>
-                  </tr>
-                  <tr class="border-b border-black-800">
-                    <td>
-                      <h2 class="text-lg font-semibold details-td-title">
-                        Cheapset
-                      </h2>
-                    </td>
-                    <td><p>its for test</p></td>
-                  </tr>
-                  <tr class="border-b border-black-800">
-                    <td>
-                      <h2 class="text-lg font-semibold details-td-title">
-                        Memory
-                      </h2>
-                    </td>
-                    <td><p>its for test</p></td>
-                  </tr>
-                  <tr class="border-b border-black-800">
-                    <td>
-                      <h2 class="text-lg font-semibold details-td-title">
-                        Sensors
-                      </h2>
-                    </td>
-                    <td><p>its for test</p></td>
-                  </tr>
-                  <tr class="border-b border-black-800">
-                    <td>
-                      <h2 class="text-lg font-semibold details-td-title">
-                        Others
-                      </h2>
-                    </td>
-                    <td><p>its for test</p></td>
-                  </tr>
+            <div id="model-details" class="w-4/6">
+              <table class="table-auto">
+                <tbody id="load-details">
+                 
                 </tbody>
               </table>
             </div>
@@ -129,7 +82,10 @@
           </div>
 
           <!-- search result are shown here -->
-          <div id="phone-result" class="grid grid-cols-3 text-center"></div>
+          <div
+            id="phone-result"
+            class="grid grid-cols-1 md:grid-cols-3 text-center"
+          ></div>
         </div>
       </section>
     </main>
