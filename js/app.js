@@ -1,5 +1,5 @@
 // Phone detail url:
-// URL Format: 
+// URL Format:
 
 // Example: https://openapi.programming-hero.com/api/phone/apple_iphone_13_pro_max-11089
 const loadPhoneDataSearches = (searchPhone) => {
@@ -8,18 +8,18 @@ const loadPhoneDataSearches = (searchPhone) => {
     .then((res) => res.json())
     .then((data) => showData(data.data.slice(0, 20)));
 };
-const loadOneMobile=(modelNumber) => {
-    const url = `https://openapi.programming-hero.com/api/phone/${modelNumber}`;
-    fetch(url)
-    .then(res=>res.json())
-    .then(data=>mobileDetails(data));
-}
+const loadOneMobile = (modelNumber) => {
+  const url = `https://openapi.programming-hero.com/api/phone/${modelNumber}`;
+  fetch(url)
+    .then((res) => res.json())
+    .then((data) => mobileDetails(data.data));
+};
 
 const loadSearch = () => {
   document.getElementById("phone-result").textContent = "";
   const searchValue = document.getElementById("search-phone");
-  const searchResult= document.getElementById("search-result");
-  searchResult.innerText=searchValue.value;
+  const searchResult = document.getElementById("search-result");
+  searchResult.innerText = searchValue.value;
   loadPhoneDataSearches(searchValue.value);
   searchValue.value = "";
 };
@@ -40,13 +40,17 @@ const showData = (phones) => {
     `;
     phoneResult.appendChild(div);
   });
-  
+
   document.getElementById("result-title").classList.remove("hidden");
 };
 
-const showDetails =(id)=> {
-    loadOneMobile(id);
-}
-const mobileDetails =(mobile)=> {
-    console.log(mobile);
-}
+const showDetails = (id) => {
+  loadOneMobile(id);
+};
+const mobileDetails = (mobile) => {
+  console.log(mobile);
+  document.getElementById(
+    "model-title"
+  ).innerText = `${mobile.brand} ${mobile.name}`;
+//   document.getElementById("brand-title").innerText = `${mobile.brand}`;
+};
