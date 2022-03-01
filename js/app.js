@@ -20,6 +20,7 @@ keypress.addEventListener("keypress", function (e) {
 const errorTitle = document.getElementById("error-title");
 const errorMessage = document.getElementById("error-msg");
 const result = document.getElementById("result-title");
+const loadMoreBtn = document.getElementById("loadMore-Btn");
 
 const loadSearch = () => {
   document.getElementById("phone-result").textContent = "";
@@ -56,7 +57,7 @@ const showData = (allPhones) => {
     errorMessage.classList.add("hidden");
   }
 
-  const loadTwentyPhone = (phone) => {
+  const loadTwentyPhone = (phones) => {
     const phoneResult = document.getElementById("phone-result");
     phones.forEach((phone) => {
       const div = document.createElement("div");
@@ -71,17 +72,13 @@ const showData = (allPhones) => {
     </div>
     `;
       phoneResult.appendChild(div);
+      loadMoreBtn.classList.remove("hidden");
     });
   };
   loadTwentyPhone(phones);
-
-  const loaMoreDiv = document.getElementById("loadMore-div");
-  loaMoreDiv.innerHTML = `
-  <button id="loadMore-Btn" class="bg-blue-600 text-white py-1 px-5 rounded">Load More</button>
-`;
   document.getElementById("result-title").classList.remove("hidden");
 
-  const loadMoreBtn = document.getElementById("loadMore-Btn");
+  // add load more button function
   loadMoreBtn.addEventListener("click", () => {
     phones = allPhones.slice(20, allPhones.length);
     loadTwentyPhone(phones);
