@@ -17,22 +17,36 @@ keypress.addEventListener("keypress", function (e) {
     loadSearch();
   }
 });
+const errorTitle = document.getElementById("error-title");
+const errorMessage = document.getElementById("error-msg");
+const result = document.getElementById("result-title");
 
 const loadSearch = () => {
   document.getElementById("phone-result").textContent = "";
   const searchValue = document.getElementById("search-phone");
   const searchResult = document.getElementById("search-result");
-  searchResult.innerText = searchValue.value;
-  loadPhoneDataSearches(searchValue.value, 20);
-  searchValue.value = "";
-  document.getElementById("detail-main-section").classList.add("hidden");
+
+  // error handling for empty input
+  if (searchValue.value === "") {
+    errorTitle.innerText = "Please enter brands name";
+    errorTitle.classList.remove("hidden");
+    errorMessage.classList.add("hidden");
+    result.classList.add("hidden");
+} else {
+    errorTitle.classList.add("hidden");
+    errorMessage.classList.add("hidden");
+    result.classList.add("hidden");
+    searchResult.innerText = searchValue.value;
+    loadPhoneDataSearches(searchValue.value, 20);
+    searchValue.value = "";
+    document.getElementById("detail-main-section").classList.add("hidden");
+  }
 };
-const errorTitle = document.getElementById("error-title");
-const errorMessage = document.getElementById("error-msg");
 
 const showData = (phones) => {
   // error handling
   if (phones.length === 0) {
+    errorTitle.innerText = "We're sorry, no results found.";
     errorTitle.classList.remove("hidden");
     errorMessage.classList.remove("hidden");
   } else {
@@ -57,14 +71,14 @@ const showData = (phones) => {
   document.getElementById("result-title").classList.remove("hidden");
 };
 
+// load detaiils from details button
 const showDetails = (id) => {
   loadOneMobile(id);
 };
+
 // load details auto seciton are here
 const mobileDetails = (mobile) => {
-  document.getElementById(
-    "model-title"
-  ).innerText = `${mobile.brand} ${mobile.name}`;
+  document.getElementById("model-title").innerText = `${mobile.brand} ${mobile.name}`;
   document.getElementById("details-img").src = `${mobile.image}`;
   document.getElementById("brand-title").innerText = `${mobile.brand}`;
   // sensor details
@@ -112,29 +126,22 @@ const mobileDetails = (mobile) => {
   loadDetailsData("Memory", mobile.mainFeatures.memory);
   loadDetailsData("Storage", mobile.mainFeatures.storage);
   loadDetailsData("Sensors", sensors);
-
-  const allFeatures = `
+  document.getElementById("Others").innerHTML = `
       <p>Blutooth: ${Bluetooth}</p>
       <p>GPS: ${GPS}</p>
       <p>NFC: ${NFC}</p>
       <p>Radio: ${Radio}</p>
       <p>USB: ${USB}</p>
-      <p>WLAN: ${WLAN}</p>`;
-
-  loadDetailsData("Others", allFeatures);
-
+      <p>WLAN: ${WLAN}</p>
+  `;
   document.getElementById("detail-main-section").classList.remove("hidden");
 };
-
+// load data to details table
 const loadDetailsData = (id, mobileData) => {
   const loadElement = document.getElementById(id);
   if (mobileData === undefined || mobileData === "" || mobileData === null) {
     loadElement.innerText = "No authorized data found";
   } else {
-    if (id === "Others") {
-      loadElement.innerHTML = mobileData;
-    } else {
-      loadElement.innerText = mobileData;
-    }
+    loadElement.innerText = mobileData;
   }
 };
