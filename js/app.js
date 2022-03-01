@@ -1,8 +1,8 @@
-const loadPhoneDataSearches = (searchPhone, slice) => {
+const loadPhoneDataSearches = (searchPhone) => {
   const url = `https://openapi.programming-hero.com/api/phones?search=${searchPhone}`;
   fetch(url)
     .then((res) => res.json())
-    .then((data) => showData(data.data.slice(0, slice)));
+    .then((data) => showData(data.data));
 };
 const loadOneMobile = (modelNumber) => {
   const url = `https://openapi.programming-hero.com/api/phone/${modelNumber}`;
@@ -32,31 +32,35 @@ const loadSearch = () => {
     errorTitle.classList.remove("hidden");
     errorMessage.classList.add("hidden");
     result.classList.add("hidden");
-} else {
+  } else {
     errorTitle.classList.add("hidden");
     errorMessage.classList.add("hidden");
     result.classList.add("hidden");
     searchResult.innerText = searchValue.value;
-    loadPhoneDataSearches(searchValue.value, 20);
+    loadPhoneDataSearches(searchValue.value);
     searchValue.value = "";
     document.getElementById("detail-main-section").classList.add("hidden");
   }
 };
 
-const showData = (phones) => {
+const showData = (allPhones) => {
+  let phones = allPhones.slice(0, 20);
+
   // error handling
   if (phones.length === 0) {
-    errorTitle.innerText = "We're sorry, no results found.";
+    errorTitle.innerText = "We're sorry, no phone found.";
     errorTitle.classList.remove("hidden");
     errorMessage.classList.remove("hidden");
   } else {
     errorTitle.classList.add("hidden");
     errorMessage.classList.add("hidden");
   }
-  const phoneResult = document.getElementById("phone-result");
-  phones.forEach((phone) => {
-    const div = document.createElement("div");
-    div.innerHTML = `
+
+  const loadTwentyPhone = (phone) => {
+    const phoneResult = document.getElementById("phone-result");
+    phones.forEach((phone) => {
+      const div = document.createElement("div");
+      div.innerHTML = `
     <div class="my-4 py-4 rounded-lg border-0 w-4/5 mx-auto shadow-lg">
         <img class="mx-auto w-3/5" src="${phone.image}" alt="">
         <h2 class="text-2xl mt-4 font-semibold">${phone.phone_name}</h2>
@@ -66,9 +70,23 @@ const showData = (phones) => {
         </div>
     </div>
     `;
-    phoneResult.appendChild(div);
-  });
+      phoneResult.appendChild(div);
+    });
+  };
+  loadTwentyPhone(phones);
+
+  const loaMoreDiv = document.getElementById("loadMore-div");
+  loaMoreDiv.innerHTML = `
+  <button id="loadMore-Btn" class="bg-blue-600 text-white py-1 px-5 rounded">Load More</button>
+`;
   document.getElementById("result-title").classList.remove("hidden");
+
+  const loadMoreBtn = document.getElementById("loadMore-Btn");
+  loadMoreBtn.addEventListener("click", () => {
+    phones = allPhones.slice(20, allPhones.length);
+    loadTwentyPhone(phones);
+    loadMoreBtn.classList.add("hidden");
+  });
 };
 
 // load detaiils from details button
@@ -78,7 +96,9 @@ const showDetails = (id) => {
 
 // load details auto seciton are here
 const mobileDetails = (mobile) => {
-  document.getElementById("model-title").innerText = `${mobile.brand} ${mobile.name}`;
+  document.getElementById(
+    "model-title"
+  ).innerText = `${mobile.brand} ${mobile.name}`;
   document.getElementById("details-img").src = `${mobile.image}`;
   document.getElementById("brand-title").innerText = `${mobile.brand}`;
   // sensor details
@@ -139,7 +159,6 @@ const mobileDetails = (mobile) => {
   closeBtn.addEventListener("click", () => {
     document.getElementById("detail-main-section").classList.add("hidden");
   });
-  
 };
 // load data to details table
 const loadDetailsData = (id, mobileData) => {
