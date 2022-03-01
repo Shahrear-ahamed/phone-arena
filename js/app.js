@@ -1,8 +1,8 @@
-const loadPhoneDataSearches = (searchPhone) => {
+const loadPhoneDataSearches = (searchPhone, slice) => {
   const url = `https://openapi.programming-hero.com/api/phones?search=${searchPhone}`;
   fetch(url)
     .then((res) => res.json())
-    .then((data) => showData(data.data.slice(0, 20)));
+    .then((data) => showData(data.data.slice(0, slice)));
 };
 const loadOneMobile = (modelNumber) => {
   const url = `https://openapi.programming-hero.com/api/phone/${modelNumber}`;
@@ -16,7 +16,7 @@ const loadSearch = () => {
   const searchValue = document.getElementById("search-phone");
   const searchResult = document.getElementById("search-result");
   searchResult.innerText = searchValue.value;
-  loadPhoneDataSearches(searchValue.value);
+  loadPhoneDataSearches(searchValue.value, 20);
   searchValue.value = "";
   document.getElementById("detail-main-section").classList.add("hidden");
 };
@@ -45,7 +45,6 @@ const showDetails = (id) => {
 };
 // load details auto seciton are here
 const mobileDetails = (mobile) => {
-  console.log(mobile.releaseDate);
   document.getElementById(
     "model-title"
   ).innerText = `${mobile.brand} ${mobile.name}`;
@@ -53,7 +52,7 @@ const mobileDetails = (mobile) => {
   document.getElementById("brand-title").innerText = `${mobile.brand}`;
   // sensor details
   const [face, acce, gyro, proxi, comp, baro] = mobile.mainFeatures.sensors;
-  const sensors = [face, acce, gyro, proxi, comp, baro];
+  const sensors = `${face}, ${acce}, ${gyro}, ${proxi}, ${comp}, ${baro}`;
   // other details
   const err = "no data found";
   const {

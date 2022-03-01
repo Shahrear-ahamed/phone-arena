@@ -13,12 +13,14 @@
   <body>
     <!-- header section are here -->
     <header>
-      <section class="bg-gray-100">
-        <nav class="container mx-auto flex justify-between">
-          <div class="logo my-3">
-            <img src="./img/logo.png" alt="" />
+      <section class="bg-gray-100 shadow-lg">
+        <nav class="container sm:mx-auto sm:flex justify-between">
+          <div class="logo py-3">
+            <img class="mx-auto sm:mx-0" src="./img/logo.png" alt="" />
           </div>
-          <div class="input-container flex items-center justify-end">
+          <div
+            class="input-container flex items-center justify-center sm:justify-end pb-3 sm:pb-0"
+          >
             <input
               id="search-phone"
               class="py-1 px-3 w-2/4 mr-2 rounded font-semibold border-black border-2"
@@ -45,28 +47,25 @@
 
         <!-- details section are here -->
 
-        <div class="w-3/5 mx-auto">
+        <div class="w-5/6 lg:w-3/5 mx-auto">
           <!-- details title  -->
           <div id="details-title">
             <h2
               id="model-title"
-              class="text-2xl font-semibold text-center border-b mb-4 pb-2 w-2/4 mx-auto"
+              class="text-2xl font-semibold text-center border-b mb-4 pb-2 md:w-2/4 mx-auto"
             ></h2>
           </div>
-          <div class="flex">
-            <div id="img-section" class="w-2/6 md:mt-3">
+          <div class="flex flex-col md:flex-row">
+            <div id="img-section" class="md:w-2/6 md:mt-3">
               <img id="details-img" class="mx-auto" src="" alt="" />
               <h2 class="text-lg text-center font-semibold my-2">
                 Brand: <span id="brand-title"></span>
               </h2>
             </div>
-            <div id="model-details" class="w-4/6">
-              <table class="table-auto">
-                <tbody id="load-details">
-                 
-                </tbody>
-              </table>
-            </div>
+            <table class="table-auto sm:ml-4 lg:ml-0">
+              <tbody id="load-details"></tbody>
+            </table>
+            <!-- <div id="model-details" class="w-4/6"></div> -->
           </div>
         </div>
       </section>
@@ -76,7 +75,10 @@
         <div>
           <!-- result title are here -->
           <div>
-            <h2 id="result-title" class="ml-10 text-2xl text-semibold hidden">
+            <h2
+              id="result-title"
+              class="md:ml-10 text-center md:text-left text-lg sm:text-2xl font-semibold hidden"
+            >
               Search results for "<span id="search-result"></span>"
             </h2>
           </div>
@@ -84,7 +86,7 @@
           <!-- search result are shown here -->
           <div
             id="phone-result"
-            class="grid grid-cols-1 md:grid-cols-3 text-center"
+            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 text-center"
           ></div>
         </div>
       </section>
