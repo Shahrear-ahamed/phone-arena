@@ -135,6 +135,11 @@ const mobileDetails = (mobile) => {
       <p>WLAN: ${WLAN}</p>
   `;
   document.getElementById("detail-main-section").classList.remove("hidden");
+  const closeBtn = document.getElementById("close-btn");
+  closeBtn.addEventListener("click", () => {
+    document.getElementById("detail-main-section").classList.add("hidden");
+  });
+  
 };
 // load data to details table
 const loadDetailsData = (id, mobileData) => {

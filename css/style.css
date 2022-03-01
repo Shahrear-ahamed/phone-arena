@@ -1,3 +1,12 @@
+.close{
+    height: 20px;
+    width: 20px;
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    cursor: pointer;
+}
+
 .details-td-title{
     width: 140px;
 }
