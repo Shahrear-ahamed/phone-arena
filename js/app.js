@@ -55,8 +55,16 @@ const mobileDetails = (mobile) => {
   const [face, acce, gyro, proxi, comp, baro] = mobile.mainFeatures.sensors;
   const sensors = [face, acce, gyro, proxi, comp, baro];
   // other details
-  const { Bluetooth, GPS, NFC, Radio, USB, WLAN } = mobile.others;
-  const features = { Bluetooth, GPS, NFC, Radio, USB, WLAN };
+  const err = "no data found";
+  const {
+    Bluetooth = err,
+    GPS = err,
+    NFC = err,
+    Radio = err,
+    USB = err,
+    WLAN = err,
+  } = { ...mobile.others };
+
   const detailsArray = [
     "Announced",
     "Display",
@@ -88,13 +96,15 @@ const mobileDetails = (mobile) => {
   loadDetailsData("Memory", mobile.mainFeatures.memory);
   loadDetailsData("Storage", mobile.mainFeatures.storage);
   loadDetailsData("Sensors", sensors);
-  //   document.getElementById("Others");
-  const allFeatures = `<p>Blutooth: ${Bluetooth}</p> 
-  <p>GPS: ${GPS}</p> 
-  <p>NFC: ${NFC}</p> 
-  <p>Radio: ${Radio}</p> 
-  <p>USB: ${USB}</p> 
-  <p>WLAN: ${WLAN}</p>`;
+
+  const allFeatures = `
+      <p>Blutooth: ${Bluetooth}</p>
+      <p>GPS: ${GPS}</p>
+      <p>NFC: ${NFC}</p>
+      <p>Radio: ${Radio}</p>
+      <p>USB: ${USB}</p>
+      <p>WLAN: ${WLAN}</p>`;
+
   loadDetailsData("Others", allFeatures);
 
   document.getElementById("detail-main-section").classList.remove("hidden");
@@ -102,7 +112,7 @@ const mobileDetails = (mobile) => {
 
 const loadDetailsData = (id, mobileData) => {
   const loadElement = document.getElementById(id);
-  if (mobileData === undefined || mobileData === "" || mobileData ===null) {
+  if (mobileData === undefined || mobileData === "" || mobileData === null) {
     loadElement.innerText = "No authorized data found";
   } else {
     if (id === "Others") {
