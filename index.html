@@ -40,11 +40,6 @@
     <!-- items or phones show section -->
     <main>
       <section id="detail-main-section" class="my-4 shadow-lg py-6 hidden">
-        <!-- error message -->
-        <div>
-          <h1 id="error-message"></h1>
-        </div>
-
         <!-- details section are here -->
 
         <div class="w-5/6 lg:w-3/5 mx-auto">
@@ -81,6 +76,14 @@
             >
               Search results for "<span id="search-result"></span>"
             </h2>
+          </div>
+          <!-- error message are here -->
+          <div>
+            <h2
+              id="error-title"
+              class="md:ml-10 text-center md:text-left text-lg sm:text-2xl font-semibold text-red-500 border-l-8 border-red-500 pl-4 my-2 hidden"
+            >We're sorry, no results found.</h2>
+            <h4 id="error-msg" class="md:ml-10 text-center md:text-left text-base sm:text-lg font-semibold text-gray-700 hidden">Maybe your spelling is wrong and please try again.</h4>
           </div>
 
           <!-- search result are shown here -->

@@ -20,8 +20,17 @@ const loadSearch = () => {
   searchValue.value = "";
   document.getElementById("detail-main-section").classList.add("hidden");
 };
-
+const errorTitle = document.getElementById("error-title");
+const errorMessage = document.getElementById("error-msg");
 const showData = (phones) => {
+  // error handling
+  if (phones.length === 0) {
+    errorTitle.classList.remove("hidden");
+    errorMessage.classList.remove("hidden");
+  } else {
+    errorTitle.classList.add("hidden");
+    errorMessage.classList.add("hidden");
+  }
   const phoneResult = document.getElementById("phone-result");
   phones.forEach((phone) => {
     const div = document.createElement("div");
