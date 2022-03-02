@@ -13,14 +13,18 @@ const loadOneMobile = (modelNumber) => {
 
 // define globally accessible
 const errorTitle = document.getElementById("error-title");
-const errorMessage = document.getElementById("error-msg");
-const result = document.getElementById("result-title");
-const loadMoreDiv = document.getElementById("loadMore-div");
-
-// global function
+// function for reusing
 const getHtmlId = (id) => document.getElementById(id);
+const addRemoveClass = (idName, value) => {
+  const classStyle = document.getElementById(idName);
+  if (value) {
+    classStyle.classList.add("hidden");
+  } else {
+    classStyle.classList.remove("hidden");
+  }
+};
 
-// search by keypress and button
+// search value by keypress and button click
 const keypress = getHtmlId("search-phone");
 keypress.addEventListener("keypress", function (e) {
   if (e.keyCode === 13) {
@@ -36,35 +40,35 @@ const loadSearch = () => {
   if (searchValue.value === "") {
     errorTitle.innerText = "Please enter brands name";
     errorTitle.classList.remove("hidden");
-    errorMessage.classList.add("hidden");
-    result.classList.add("hidden");
-    loadMoreDiv.classList.add("hidden");
+    addRemoveClass("error-msg", true);
+    addRemoveClass("result-title", true);
+    addRemoveClass("loadMore-div", true);
   } else {
     errorTitle.classList.add("hidden");
-    errorMessage.classList.add("hidden");
-    result.classList.add("hidden");
-    loadMoreDiv.classList.add("hidden");
+    addRemoveClass("error-msg", true);
+    addRemoveClass("result-title", true);
+    addRemoveClass("loadMore-div", true);
     searchResult.innerText = searchValue.value;
     loadPhoneDataSearches(searchValue.value);
     searchValue.value = "";
-    document.getElementById("detail-main-section").classList.add("hidden");
+    addRemoveClass("detail-main-section", true);
   }
 };
 
+// show data only
 const showData = (allPhones) => {
   let phones = allPhones.slice(0, 20);
-  // error handling
+  // error handling after load data
   if (phones.length === 0) {
     errorTitle.innerText = "We're sorry, no phone found.";
     errorTitle.classList.remove("hidden");
-    errorMessage.classList.remove("hidden");
-    loadMoreDiv.classList.add("hidden");
+    addRemoveClass("error-msg", false);
+    addRemoveClass("loadMore-div", true);
   } else {
     errorTitle.classList.add("hidden");
-    errorMessage.classList.add("hidden");
-    loadMoreDiv.classList.remove("hidden");
+    addRemoveClass("error-msg", true);
+    addRemoveClass("loadMore-div", false);
   }
-
   const loadTwentyPhone = (phones) => {
     const phoneResult = document.getElementById("phone-result");
     phones.forEach((phone) => {
@@ -82,32 +86,41 @@ const showData = (allPhones) => {
     });
   };
   loadTwentyPhone(phones);
-  result.classList.remove("hidden");
+  addRemoveClass("result-title", false);
 
   // add load more button function
-  document.getElementById("loadMore-Btn").addEventListener("click", () => {
+  const loadMore = () => {
     phones = allPhones.slice(20, allPhones.length);
     loadTwentyPhone(phones);
-    loadMoreDiv.classList.add("hidden");
-  });
+    addRemoveClass("loadMore-div", true);
+  };
 };
 
 // load detaiils from details button
 const showDetails = (id) => {
   loadOneMobile(id);
 };
-
-// load details auto seciton are here
+// load details auto seciton created are here
 const mobileDetails = (mobile) => {
-  document.getElementById("model-title").innerText =`${mobile.brand} ${mobile.name}`;
-  document.getElementById("details-img").src =`${mobile.image}`;
-  document.getElementById("brand-title").innerText =`${mobile.brand}`;
+  document.getElementById(
+    "model-title"
+  ).innerText = `${mobile.brand} ${mobile.name}`;
+  document.getElementById("details-img").src = `${mobile.image}`;
+  document.getElementById("brand-title").innerText = `${mobile.brand}`;
   // sensor details
   const [face, acce, gyro, proxi, comp, baro] = mobile.mainFeatures.sensors;
   const sensors = `${face}, ${acce}, ${gyro}, ${proxi}, ${comp}, ${baro}`;
   // other details
   const err = "No data found for this device";
-  const detailsArray = ["Announced", "Display", "Cheapset", "Memory", "Storage", "Sensors", "Others"];
+  const detailsArray = [
+    "Announced",
+    "Display",
+    "Cheapset",
+    "Memory",
+    "Storage",
+    "Sensors",
+    "Others",
+  ];
 
   const loadTable = getHtmlId("load-details");
   loadTable.textContent = "";
@@ -131,17 +144,19 @@ const mobileDetails = (mobile) => {
   loadDetailsData("Storage", mobile.mainFeatures.storage);
   loadDetailsData("Sensors", sensors);
   document.getElementById("Others").innerHTML = `
-    <p>Bluetooth: ${mobile?.others?.Bluetooth ? mobile?.others?.Bluetooth : err}</p>
+    <p>Bluetooth: ${
+      mobile?.others?.Bluetooth ? mobile?.others?.Bluetooth : err
+    }</p>
     <p>GPS: ${mobile?.others?.GPS ? mobile?.others?.GPS : err}</p>
     <p>NFC: ${mobile?.others?.NFC ? mobile?.others?.NFC : err}</p>
     <p>Radio: ${mobile?.others?.Radio ? mobile?.others?.Radio : err}</p>
     <p>USB: ${mobile?.others?.USB ? mobile?.others?.USB : err}</p>
     <p>WLAN: ${mobile?.others?.WLAN ? mobile?.others?.WLAN : err}</p>
   `;
-  document.getElementById("detail-main-section").classList.remove("hidden");
+  addRemoveClass("detail-main-section", false);
   const closeBtn = document.getElementById("close-btn");
   closeBtn.addEventListener("click", () => {
-    document.getElementById("detail-main-section").classList.add("hidden");
+    addRemoveClass("detail-main-section", true);
   });
 };
 // load data to details table
