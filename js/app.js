@@ -17,9 +17,11 @@ keypress.addEventListener("keypress", function (e) {
     loadSearch();
   }
 });
+// define globally accessible
 const errorTitle = document.getElementById("error-title");
 const errorMessage = document.getElementById("error-msg");
 const result = document.getElementById("result-title");
+const loadMoreDiv = document.getElementById("loadMore-div");
 const loadMoreBtn = document.getElementById("loadMore-Btn");
 
 const loadSearch = () => {
@@ -55,6 +57,7 @@ const showData = (allPhones) => {
   } else {
     errorTitle.classList.add("hidden");
     errorMessage.classList.add("hidden");
+    loadMoreDiv.classList.remove("hidden");
   }
 
   const loadTwentyPhone = (phones) => {
@@ -62,17 +65,16 @@ const showData = (allPhones) => {
     phones.forEach((phone) => {
       const div = document.createElement("div");
       div.innerHTML = `
-    <div class="my-4 py-4 rounded-lg border-0 w-4/5 mx-auto shadow-lg">
-        <img class="mx-auto w-3/5" src="${phone.image}" alt="">
-        <h2 class="text-2xl mt-4 font-semibold">${phone.phone_name}</h2>
-        <div class="flex justify-between mx-7 mt-5 mb-3">
-            <h4 class="text-lg font-semibold">Brand: ${phone.brand}</h4>
-            <button class="bg-blue-600 text-white py-1 px-5 rounded" onClick="showDetails('${phone.slug}')">Details</button>
-        </div>
-    </div>
-    `;
+      <div class="my-4 py-4 rounded-lg border-0 w-4/5 mx-auto shadow-lg">
+          <img class="mx-auto w-3/5" src="${phone.image}" alt="">
+          <h2 class="text-2xl mt-4 font-semibold">${phone.phone_name}</h2>
+          <div class="flex justify-between mx-7 mt-5 mb-3">
+              <h4 class="text-lg font-semibold">Brand: ${phone.brand}</h4>
+              <button class="bg-blue-600 text-white py-1 px-5 rounded" onClick="showDetails('${phone.slug}')">Details</button>
+          </div>
+      </div>
+      `;
       phoneResult.appendChild(div);
-      loadMoreBtn.classList.remove("hidden");
     });
   };
   loadTwentyPhone(phones);
@@ -82,7 +84,7 @@ const showData = (allPhones) => {
   loadMoreBtn.addEventListener("click", () => {
     phones = allPhones.slice(20, allPhones.length);
     loadTwentyPhone(phones);
-    loadMoreBtn.classList.add("hidden");
+    loadMoreDiv.classList.add("hidden");
   });
 };
 
@@ -161,7 +163,7 @@ const mobileDetails = (mobile) => {
 const loadDetailsData = (id, mobileData) => {
   const loadElement = document.getElementById(id);
   if (mobileData === undefined || mobileData === "" || mobileData === null) {
-    loadElement.innerText = "No authorized data found";
+    loadElement.innerText = "No release date found";
   } else {
     loadElement.innerText = mobileData;
   }
