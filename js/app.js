@@ -35,10 +35,12 @@ const loadSearch = () => {
     errorTitle.classList.remove("hidden");
     errorMessage.classList.add("hidden");
     result.classList.add("hidden");
+    loadMoreDiv.classList.add("hidden");
   } else {
     errorTitle.classList.add("hidden");
     errorMessage.classList.add("hidden");
     result.classList.add("hidden");
+    loadMoreDiv.classList.add("hidden");
     searchResult.innerText = searchValue.value;
     loadPhoneDataSearches(searchValue.value);
     searchValue.value = "";
@@ -54,6 +56,7 @@ const showData = (allPhones) => {
     errorTitle.innerText = "We're sorry, no phone found.";
     errorTitle.classList.remove("hidden");
     errorMessage.classList.remove("hidden");
+    loadMoreDiv.classList.add("hidden");
   } else {
     errorTitle.classList.add("hidden");
     errorMessage.classList.add("hidden");
