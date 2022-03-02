@@ -50,7 +50,6 @@ const loadSearch = () => {
 
 const showData = (allPhones) => {
   let phones = allPhones.slice(0, 20);
-
   // error handling
   if (phones.length === 0) {
     errorTitle.innerText = "We're sorry, no phone found.";
@@ -98,25 +97,14 @@ const showDetails = (id) => {
 
 // load details auto seciton are here
 const mobileDetails = (mobile) => {
-  document.getElementById(
-    "model-title"
-  ).innerText = `${mobile.brand} ${mobile.name}`;
-  document.getElementById("details-img").src = `${mobile.image}`;
-  document.getElementById("brand-title").innerText = `${mobile.brand}`;
+  document.getElementById("model-title").innerText =`${mobile.brand} ${mobile.name}`;
+  document.getElementById("details-img").src =`${mobile.image}`;
+  document.getElementById("brand-title").innerText =`${mobile.brand}`;
   // sensor details
   const [face, acce, gyro, proxi, comp, baro] = mobile.mainFeatures.sensors;
   const sensors = `${face}, ${acce}, ${gyro}, ${proxi}, ${comp}, ${baro}`;
   // other details
-  const err = "no data found";
-  const {
-    Bluetooth = err,
-    GPS = err,
-    NFC = err,
-    Radio = err,
-    USB = err,
-    WLAN = err,
-  } = { ...mobile.others };
-
+  const err = "No data found for this device";
   const detailsArray = [
     "Announced",
     "Display",
@@ -149,12 +137,12 @@ const mobileDetails = (mobile) => {
   loadDetailsData("Storage", mobile.mainFeatures.storage);
   loadDetailsData("Sensors", sensors);
   document.getElementById("Others").innerHTML = `
-      <p>Blutooth: ${Bluetooth}</p>
-      <p>GPS: ${GPS}</p>
-      <p>NFC: ${NFC}</p>
-      <p>Radio: ${Radio}</p>
-      <p>USB: ${USB}</p>
-      <p>WLAN: ${WLAN}</p>
+    <p>Bluetooth: ${mobile?.others?.Bluetooth ? mobile?.others?.Bluetooth : err}</p>
+    <p>GPS: ${mobile?.others?.GPS ? mobile?.others?.GPS : err}</p>
+    <p>NFC: ${mobile?.others?.NFC ? mobile?.others?.NFC : err}</p>
+    <p>Radio: ${mobile?.others?.Radio ? mobile?.others?.Radio : err}</p>
+    <p>USB: ${mobile?.others?.USB ? mobile?.others?.USB : err}</p>
+    <p>WLAN: ${mobile?.others?.WLAN ? mobile?.others?.WLAN : err}</p>
   `;
   document.getElementById("detail-main-section").classList.remove("hidden");
   const closeBtn = document.getElementById("close-btn");
